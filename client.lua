@@ -149,7 +149,7 @@ end)
 
 -- Events
 
-RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
+AddEventHandler('QBCore:Client:OnPlayerLoaded', function()
     PlayerData = QBCore.Functions.GetPlayerData()
     isLoggedIn = true
     --getClosestFloor()  
@@ -163,11 +163,10 @@ end)
 AddEventHandler('onResourceStart', function(resource)
 	if resource == GetCurrentResourceName() then
 		Wait(200)
-		local resourcename = GetCurrentResourceName()
         PlayerData = QBCore.Functions.GetPlayerData()
 		isLoggedIn = true
         
-        print(resourcename .." restarted")
+        print(resource .." restarted")
 	end
 end)
 
