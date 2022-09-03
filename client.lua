@@ -166,11 +166,17 @@ AddEventHandler('onResourceStart', function(resource)
         PlayerData = QBCore.Functions.GetPlayerData()
 		isLoggedIn = true
         
-        print(resource .." restarted")
+        --print(resource .." restarted")
 	end
 end)
 
-AddEventHandler('onResourceStop', function(r) if r == GetCurrentResourceName() then for k, v in pairs(Config.Locations) do exports['third-eye']:RemoveZone(v.boxzone.name) end end end)
+AddEventHandler('onResourceStop', function(resource) 
+    if resource == GetCurrentResourceName() then 
+        for k, v in pairs(Config.Locations) do 
+            exports['third-eye']:RemoveZone(v.boxzone.name) 
+        end 
+    end 
+end)
 
 RegisterNetEvent('trbl-Elevators:ShowMenu', function()
     ShowFloorHeaderMenu()
