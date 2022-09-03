@@ -1,9 +1,10 @@
 Config = {}
 Config.UseTarget = true
+Config.TargetResourceName = 'third-eye' -- qb-target etc / remember to update the fxmanifest too
 Config.Locale = "en"
-Config.Debug    = true
+Config.Debug    = false
 Config.Locations = {
-        {       --["OceanHospitalGround"]
+        {       -- OceanHospitalGround
             label = "Ground Floor",
             coords = vector3(-1843.02, -341.89, 48.8),             
             choices = {
@@ -24,8 +25,7 @@ Config.Locations = {
                     coords = vector3(-1835.44, -339.02, 58.16),
                     heading = 140.52,
                     id = 3
-                },
-                
+                },                
                 {
                     label = "Level 8 Office",
                     coords = vector3(229.1, -429.17, 48.06),
@@ -43,7 +43,7 @@ Config.Locations = {
                 maxZ = 50.25,
                 }
         },
-        {       --["OceanHospital-LevelBasement2"]
+        {       -- OceanHospital-LevelBasement2
             label = "B2 - Emergency Entrance",
             coords = vector3(-1872.22, -306.84, 41.26),     --vector3(-1848.66, -340.46, 41.25),            
             choices = {                
@@ -83,7 +83,7 @@ Config.Locations = {
                 },
 
         },
-        {       --["OceanHospital-Level2Heli"]
+        {       -- OceanHospital-Level2Heli
             label = "L2 - Emergency Heli Entrance",
             coords = vector3(-1835.37, -338.9, 58.16),
             choices = {
@@ -122,7 +122,7 @@ Config.Locations = {
                 maxZ = 41.2,
                 },
         },
-        {       --["OceanHospital-Level8Offices"]   -- this needs updating with proper coords
+        {       -- OceanHospital-Level8Offices   -- this needs updating with proper coords or itll break
             label = "L8 - Executive Level",
             coords = vector3(-1835.37, -338.9, 58.16),
             choices = {

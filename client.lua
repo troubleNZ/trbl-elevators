@@ -89,7 +89,7 @@ local function transition(id)
     QBCore.Functions.Progressbar("transition_location", "Waiting for Elevator", 5000, false, true, {
         disableMovement = true,
         disableCarMovement = true,
-        disableMouse = true,
+        disableMouse = false,
         disableCombat = true,
     }, {}, {}, {}, function() -- Done
     end)
@@ -125,7 +125,7 @@ CreateThread(function()     -- boxzone set up
     
     if Config.UseTarget then
         for k,v in pairs(Config.Locations) do
-            exports['third-eye']:AddBoxZone(v.boxzone.name, v.boxzone.loc, v.boxzone.length, v.boxzone.width, {
+            exports[Config.TargetResourceName]:AddBoxZone(v.boxzone.name, v.boxzone.loc, v.boxzone.length, v.boxzone.width, {
                 name = v.boxzone.name,
                 heading = v.boxzone.heading,
                 debugPoly = Config.Debug,
@@ -134,7 +134,7 @@ CreateThread(function()     -- boxzone set up
                 },{
                 options = { {
                             --type = "client",
-                            label = v.label,
+                            label = v.label .. " Elevator",
                             event = "trbl-Elevators:ShowMenu",
                             icon = "fas fa-circle-sort",
                             --job = "all",
@@ -173,7 +173,7 @@ end)
 AddEventHandler('onResourceStop', function(resource) 
     if resource == GetCurrentResourceName() then 
         for k, v in pairs(Config.Locations) do 
-            exports['third-eye']:RemoveZone(v.boxzone.name) 
+            exports[Config.TargetResourceName]:RemoveZone(v.boxzone.name) 
         end 
     end 
 end)
