@@ -5,6 +5,7 @@ local Translations = {
     },
     success = {
         transitioned = 'You moved to the requested floor',
+        waiting = 'Waiting for Elevator..'
         
     },
     info = {
@@ -15,6 +16,7 @@ local Translations = {
         enter_boss = 'Welcome Boss',
         enter_general = 'Select Floor',
         close_menu = '⬅ Close Menu',
+        elevator = " Elevator"
     },
 }
 
