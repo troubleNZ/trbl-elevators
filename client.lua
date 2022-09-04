@@ -5,6 +5,7 @@ local isLoggedIn = LocalPlayer.state.isLoggedIn
 local playerPed = PlayerPedId()
 local playerCoords = GetEntityCoords(playerPed)
 local closestFloor = nil
+local id = nil
 local minimumdistance = 2.0  -- float - meters from zone
 
 
@@ -55,7 +56,7 @@ local function ShowFloorHeaderMenu()
             params = {
                 event = 'trbl-Elevators:client:transition',
                 args = {
-                    id = j.id,
+                    id = flooroption.id,
                     }
             }
         }
@@ -81,7 +82,8 @@ end
 
 
 local function transition(id)
-    local choice = Config.Locations[closestFloor].choices[id]
+    local choiceid = id
+    local choice = Config.Locations[closestFloor].choices[choiceid]
     local coords = choice.coords
     local heading = choice.heading
     local label = choice.label
@@ -182,6 +184,7 @@ RegisterNetEvent('trbl-Elevators:ShowMenu', function()
     ShowFloorHeaderMenu()
 end)
 
-RegisterNetEvent('trbl-Elevators:client:transition', function(id)
-    transition(id)
+RegisterNetEvent('trbl-Elevators:client:transition', function(args)
+    local choiceid = args.id
+    transition(choiceid)
 end)
