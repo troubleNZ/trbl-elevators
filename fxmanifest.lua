@@ -2,7 +2,10 @@ fx_version 'cerulean'
 game 'gta5'
 
 description 'Trbl-Elevators'
-version '1.0'
+version '1.0.1'
+author 'TroubleshooterNZ'
+repository 'https://github.com/troubleNZ/trbl-elevators'
+
 
 shared_scripts {
     'config.lua',
@@ -13,6 +16,7 @@ shared_scripts {
 server_scripts {
     --'@oxmysql/lib/MySQL.lua',
     --'server/main.lua'
+	'server.lua',
 }
 
 client_scripts {
