@@ -16,7 +16,8 @@ local Translations = {
         enter_boss = 'Welcome Boss',
         enter_general = 'Select Floor',
         close_menu = '⬅ Close Menu',
-        elevator = " Elevator"
+        elevator = " Elevator",
+        showmenu = "[E] Elevator Menu",
     },
 }
 

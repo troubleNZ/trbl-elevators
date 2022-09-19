@@ -162,7 +162,7 @@ CreateThread(function()     -- boxzone set up
                     if isPointInside then
                         inRangeElevator = true
                         --print("inRangeElevator ".. inRangeElevator)
-                        exports['qb-core']:DrawText('[E] Elevator Menu')
+                        exports['qb-core']:DrawText(Lang:t('text.showmenu'))
                     else
                         inRangeElevator = false
                         exports['qb-core']:HideText()       -- is this ok here? will it close other popup text accidentally?
