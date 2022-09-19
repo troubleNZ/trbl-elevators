@@ -1,8 +1,12 @@
 Config = {}
-Config.UseTarget = true
+
+Config.UseTarget = true -- use one method only or risk your sanity
+Config.UseZones = true
+
 Config.TargetResourceName = 'third-eye' -- qb-target etc / remember to update the fxmanifest too
 Config.Locale = "en"
 Config.Debug    = false
+
 Config.Locations = {
         {       -- OceanHospitalGround
             label = "Ground Floor",
@@ -34,14 +38,24 @@ Config.Locations = {
                 },
             },
             boxzone = {-- qb-target options 
-                loc = vector3(-1844.7, -342.19, 49.45),  --boxzone            
+                --loc = vector3(-1844.7, -342.19, 49.45),  --boxzone            
                 length = 1.5,
                 width = 1.5,
                 name = "OceanHospitalGroundFloor", 
                 heading = 5,
-                minZ = 48.25,
-                maxZ = 50.25,
-                }
+                --minZ = 48.25,
+                --maxZ = 50.25,
+            },
+            zones = {   -- polyzone and showui
+                vector2(Config.Locations[k]coords.x+2, Config.Locations[k]coords.y+2),
+                vector2(Config.Locations[k]coords.x-2, Config.Locations[k]coords.y+2),
+                vector2(Config.Locations[k]coords.x-2, Config.Locations[k]coords.y-2),
+                vector2(Config.Locations[k]coords.x+2, Config.Locations[k]coords.y-2),
+                
+            },
+            minZ = Config.Locations[k]coords.z-1,       -- mandatory - used for both zone type
+            maxZ = Config.Locations[k]coords.z+1,       -- mandatory - used for both zone type
+
         },
         {       -- OceanHospital-LevelBasement2
             label = "B2 - Emergency Entrance",
@@ -73,14 +87,23 @@ Config.Locations = {
                 },
             },
             boxzone = {-- qb-target options 
-                loc = vector3(-1850.32, -340.86, 41.25),  --boxzone            
+                --loc = vector3(-1850.32, -340.86, 41.25),  --boxzone            
                 length = 1.5,
                 width = 1.5,
                 name = "OceanHospitalEmergencyFloor", 
                 heading = 5,
-                minZ = 40.25,
-                maxZ = 42.25,
-                },
+                --minZ = 40.25,
+                --maxZ = 42.25,
+            },
+            zones = {   -- polyzone and showui
+                vector2(Config.Locations[k]coords.x+2, Config.Locations[k]coords.y+2),
+                vector2(Config.Locations[k]coords.x-2, Config.Locations[k]coords.y+2),
+                vector2(Config.Locations[k]coords.x-2, Config.Locations[k]coords.y-2),
+                vector2(Config.Locations[k]coords.x+2, Config.Locations[k]coords.y-2),
+                
+            },
+            minZ = Config.Locations[k]coords.z-1,       -- mandatory - used for both zone type
+            maxZ = Config.Locations[k]coords.z+1,       -- mandatory - used for both zone type
 
         },
         {       -- OceanHospital-Level2Heli
@@ -113,14 +136,23 @@ Config.Locations = {
                 },
             },
             boxzone = {-- qb-target options 
-                loc = vector3(-1837.04, -339.58, 58.16),  --boxzone            
+                --loc = vector3(-1837.04, -339.58, 58.16),  --boxzone            
                 length = 1.5,
                 width = 1.5,
                 name = "OceanHospitalEmergencyFloor", 
                 heading = 5,
-                minZ = 39.2,
-                maxZ = 41.2,
-                },
+                --minZ = 39.2,
+                --maxZ = 41.2,
+            },
+            zones = {   -- polyzone and showui
+                vector2(Config.Locations[k]coords.x+2, Config.Locations[k]coords.y+2),
+                vector2(Config.Locations[k]coords.x-2, Config.Locations[k]coords.y+2),
+                vector2(Config.Locations[k]coords.x-2, Config.Locations[k]coords.y-2),
+                vector2(Config.Locations[k]coords.x+2, Config.Locations[k]coords.y-2),
+                
+            },
+            minZ = Config.Locations[k]coords.z-1,       -- mandatory - used for both zone type
+            maxZ = Config.Locations[k]coords.z+1,       -- mandatory - used for both zone type
         },
         {       -- OceanHospital-Level8Offices   -- this needs updating with proper coords or itll break
             label = "L8 - Executive Level",
@@ -152,14 +184,23 @@ Config.Locations = {
                 },
             },
             boxzone = {-- qb-target options 
-                loc = vector3(-1837.04, -339.58, 58.16),  --boxzone            
+                --loc = vector3(-1837.04, -339.58, 58.16),  --boxzone            
                 length = 1.5,
                 width = 1.5,
                 name = "OceanHospitalEmergencyFloor", 
                 heading = 5,
-                minZ = 39.2,
-                maxZ = 41.2,
-                },
+                --minZ = 39.2,
+                --maxZ = 41.2,
+            },
+            zones = {   -- polyzone and showui
+                vector2(Config.Locations[k]coords.x+2, Config.Locations[k]coords.y+2),
+                vector2(Config.Locations[k]coords.x-2, Config.Locations[k]coords.y+2),
+                vector2(Config.Locations[k]coords.x-2, Config.Locations[k]coords.y-2),
+                vector2(Config.Locations[k]coords.x+2, Config.Locations[k]coords.y-2),
+                
+            },
+            minZ = Config.Locations[k]coords.z-1,       -- mandatory - used for both zone type
+            maxZ = Config.Locations[k]coords.z+1,       -- mandatory - used for both zone type
    
         },
 }

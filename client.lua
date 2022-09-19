@@ -4,6 +4,8 @@ local PlayerData = QBCore.Functions.GetPlayerData()
 local isLoggedIn = LocalPlayer.state.isLoggedIn
 local playerPed = PlayerPedId()
 local playerCoords = GetEntityCoords(playerPed)
+local floors = {}
+local inRangeElevator = false
 local closestFloor = nil
 local id = nil
 local minimumdistance = 2.0  -- float - meters from zone
@@ -125,14 +127,14 @@ end)
 
 CreateThread(function()     -- boxzone set up
     
-    if Config.UseTarget then
+    if Config.UseTarget == true then
         for k,v in pairs(Config.Locations) do
-            exports[Config.TargetResourceName]:AddBoxZone(v.boxzone.name, v.boxzone.loc, v.boxzone.length, v.boxzone.width, {
+            exports[Config.TargetResourceName]:AddBoxZone(v.boxzone.name, v.coords, v.boxzone.length, v.boxzone.width, {
                 name = v.boxzone.name,
                 heading = v.boxzone.heading,
                 debugPoly = Config.Debug,
-                minZ = v.boxzone.minZ,
-                maxZ = v.boxzone.maxZ,
+                minZ = v.minZ,
+                maxZ = v.maxZ,
                 },{
                 options = { {
                             --type = "client",
@@ -146,7 +148,57 @@ CreateThread(function()     -- boxzone set up
             --print("boxzone set up: ".. v.label)       -- debug
         end
     end
+    
+    if Config.UseZones == true then
+        
+            for k=1, #Config.Locations do
+                floors[k] = PolyZone:Create(Config.Locations[k].zones, {
+                    name="elevator"..k,
+                    minZ = 	Config.Locations[k].minZ,
+                    maxZ = Config.Locations[k].maxZ,
+                    debugPoly = false
+                })
+                floors[k]:onPlayerInOut(function(isPointInside)
+                    if isPointInside then
+                        inRangeElevator = true
+                        --print("inRangeElevator ".. inRangeElevator)
+                        exports['qb-core']:DrawText('[E] Elevator Menu')
+                    else
+                        inRangeElevator = false
+                        exports['qb-core']:HideText()       -- is this ok here? will it close other popup text accidentally?
+                    end
+                end)
+            end
+    end
+
 end)
+
+
+CreateThread(function()
+
+    if Config.UseZones then
+        while true do
+            local sleep = 1000
+            if isLoggedIn and closestFloor then
+                if inRangeElevator then
+                    
+                    sleep = 0
+                    if IsControlJustPressed(0, 38) then
+                        --setCityhallPageState(true, true)
+                        ShowFloorHeaderMenu()
+                        exports['qb-core']:KeyPressed()
+                        Wait(500)
+                        exports['qb-core']:HideText()
+                        sleep = 1000
+                    end
+                
+                end
+            end
+            Wait(sleep)
+        end
+    end
+end)
+
 
 
 -- Events
