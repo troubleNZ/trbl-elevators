@@ -15,7 +15,7 @@ Config.Locations = {
                 { label = "Sub Level 2",         coords = vector3(-1872.22, -306.84, 41.26), heading = 0.0,      id = 1},
                 { label = "Ground / Reception",  coords = vector3(-1843.02, -341.89, 48.8),  heading = 0.0,      id = 2},
                 { label = "Level 2 Helipad",     coords = vector3(-1835.44, -339.02, 58.16), heading = 140.52,   id = 3},                
-                { label = "Level 8 Office",      coords = vector3(229.1, -429.17, 48.06),    heading = 0.0,      id = 4},
+                { label = "Level 8 Office",      coords = vector3(-1835.37, -338.9, 58.16),  heading = 0.0,      id = 4},
             },
             boxzone = {-- qb-target options 
                 length = 1.5,
@@ -23,7 +23,7 @@ Config.Locations = {
                 name = "OceanHospitalGroundFloor", 
                 heading = 5,
             },
-            zones = {   -- polyzone and showui
+            polyzone = {   -- polyzone and showui
                 vector2(Config.Locations[k]coords.x+2, Config.Locations[k]coords.y+2),
                 vector2(Config.Locations[k]coords.x-2, Config.Locations[k]coords.y+2),
                 vector2(Config.Locations[k]coords.x-2, Config.Locations[k]coords.y-2),

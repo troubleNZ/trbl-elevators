@@ -90,7 +90,7 @@ local function transition(id)
     local heading = choice.heading
     local label = choice.label
     --local ped = PlayerPedId()
-    QBCore.Functions.Progressbar("transition_location", "Waiting for Elevator", 5000, false, true, {
+    QBCore.Functions.Progressbar("transition_location", Lang:t('success.waiting'), 5000, false, true, {
         disableMovement = true,
         disableCarMovement = true,
         disableMouse = false,
@@ -138,7 +138,7 @@ CreateThread(function()     -- boxzone set up
                 },{
                 options = { {
                             --type = "client",
-                            label = v.label .. " Elevator",
+                            label = v.label .. " "..Lang:t('text.elevator'),
                             event = "trbl-Elevators:ShowMenu",
                             icon = "fas fa-circle-sort",
                             --job = "all",
@@ -152,7 +152,7 @@ CreateThread(function()     -- boxzone set up
     if Config.UseZones == true then
         
             for k=1, #Config.Locations do
-                floors[k] = PolyZone:Create(Config.Locations[k].zones, {
+                floors[k] = PolyZone:Create(Config.Locations[k].polyzone, {
                     name="elevator"..k,
                     minZ = 	Config.Locations[k].minZ,
                     maxZ = Config.Locations[k].maxZ,
