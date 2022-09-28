@@ -129,8 +129,8 @@ CreateThread(function()     -- boxzone set up
     
     if Config.UseTarget == true then
         for k,v in pairs(Config.Locations) do
-            exports[Config.TargetResourceName]:AddBoxZone(v.boxzone.name, v.coords, v.boxzone.length, v.boxzone.width, {
-                name = v.boxzone.name,
+            exports[Config.TargetResourceName]:AddBoxZone(v.name, v.coords, v.boxzone.length, v.boxzone.width, {
+                name = v.name,
                 heading = v.boxzone.heading,
                 debugPoly = Config.Debug,
                 minZ = v.coords.z-1,
@@ -154,7 +154,7 @@ CreateThread(function()     -- boxzone set up
             --for k=1, #Config.Locations do
             for k,v in pairs(Config.Locations) do
                 floors[k] = PolyZone:Create(v.polyzone, {
-                    name="elevator"..k,
+                    name="elevator"..v.name,
                     minZ = 	v.coords.z-1,
                     maxZ = v.coords.z+1,
                     debugPoly = false
@@ -228,7 +228,7 @@ end)
 AddEventHandler('onResourceStop', function(resource) 
     if resource == GetCurrentResourceName() then 
         for k, v in pairs(Config.Locations) do 
-            exports[Config.TargetResourceName]:RemoveZone(v.boxzone.name) 
+            exports[Config.TargetResourceName]:RemoveZone(v.name) 
         end 
     end 
 end)
