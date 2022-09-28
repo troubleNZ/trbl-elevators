@@ -24,13 +24,11 @@ Config.Locations = {
                 heading = 5,
             },
             polyzone = {   -- polyzone and showui
-                vector2(Config.Locations[k]coords.x+2, Config.Locations[k]coords.y+2),
-                vector2(Config.Locations[k]coords.x-2, Config.Locations[k]coords.y+2),
-                vector2(Config.Locations[k]coords.x-2, Config.Locations[k]coords.y-2),
-                vector2(Config.Locations[k]coords.x+2, Config.Locations[k]coords.y-2),
+                vector2(-1843.02+2, -341.89+2),
+                vector2(-1843.02-2, -341.89+2),
+                vector2(-1843.02-2, -341.89-2),
+                vector2(-1843.02+2, -341.89-2),
             },
-            minZ = Config.Locations[k]coords.z-1,       -- mandatory - used for both zone type
-            maxZ = Config.Locations[k]coords.z+1,       -- mandatory - used for both zone type
         },
         {       -- OceanHospital-LevelBasement2
             label = "B2 - Emergency Entrance",
@@ -47,14 +45,12 @@ Config.Locations = {
                 name = "OceanHospitalEmergencyFloor",
                 heading = 5,
             },
-            zones = {   -- polyzone and showui
-                vector2(Config.Locations[k]coords.x+2, Config.Locations[k]coords.y+2),
-                vector2(Config.Locations[k]coords.x-2, Config.Locations[k]coords.y+2),
-                vector2(Config.Locations[k]coords.x-2, Config.Locations[k]coords.y-2),
-                vector2(Config.Locations[k]coords.x+2, Config.Locations[k]coords.y-2),
+            polyzone = {   -- polyzone and showui
+                vector2(-1872.22+2, -306.84+2),
+                vector2(-1872.22-2, -306.84+2),
+                vector2(-1872.22-2, -306.84-2),
+                vector2(-1872.22+2, -306.84-2),
             },
-            minZ = Config.Locations[k]coords.z-1,       -- mandatory - used for both zone type
-            maxZ = Config.Locations[k]coords.z+1,       -- mandatory - used for both zone type
         },
         {       -- OceanHospital-Level2Heli
             label = "L2 - Emergency Heli Entrance",
@@ -72,13 +68,11 @@ Config.Locations = {
                 heading = 5,
             },
             zones = {   -- polyzone and showui
-                vector2(Config.Locations[k]coords.x+2, Config.Locations[k]coords.y+2),
-                vector2(Config.Locations[k]coords.x-2, Config.Locations[k]coords.y+2),
-                vector2(Config.Locations[k]coords.x-2, Config.Locations[k]coords.y-2),
-                vector2(Config.Locations[k]coords.x+2, Config.Locations[k]coords.y-2),
+                vector2(-1835.37+2, -338.9+2),
+                vector2(-1835.37-2, -338.9+2),
+                vector2(-1835.37-2, -338.9-2),
+                vector2(-1835.37+2, -338.9-2),
             },
-            minZ = Config.Locations[k]coords.z-1,       -- mandatory - used for both zone type
-            maxZ = Config.Locations[k]coords.z+1,       -- mandatory - used for both zone type
         },
         {       -- OceanHospital-Level8Offices   -- this needs updating with proper coords or itll break
             label = "L8 - Executive Level",
@@ -96,12 +90,10 @@ Config.Locations = {
                 heading = 5,
             },
             zones = {   -- polyzone and showui
-                vector2(Config.Locations[k]coords.x+2, Config.Locations[k]coords.y+2),
-                vector2(Config.Locations[k]coords.x-2, Config.Locations[k]coords.y+2),
-                vector2(Config.Locations[k]coords.x-2, Config.Locations[k]coords.y-2),
-                vector2(Config.Locations[k]coords.x+2, Config.Locations[k]coords.y-2),
+                vector2(-1835.37+2, -338.9+2),
+                vector2(-1835.37-2, -338.9+2),
+                vector2(-1835.37-2, -338.9-2),
+                vector2(-1835.37+2, -338.9-2),
             },
-            minZ = Config.Locations[k]coords.z-1,       -- mandatory - used for both zone type
-            maxZ = Config.Locations[k]coords.z+1,       -- mandatory - used for both zone type
         },
 }

@@ -133,8 +133,8 @@ CreateThread(function()     -- boxzone set up
                 name = v.boxzone.name,
                 heading = v.boxzone.heading,
                 debugPoly = Config.Debug,
-                minZ = v.minZ,
-                maxZ = v.maxZ,
+                minZ = v.coords.z-1,
+                maxZ = v.coords.z+1,
                 },{
                 options = { {
                             --type = "client",
@@ -151,11 +151,12 @@ CreateThread(function()     -- boxzone set up
     
     if Config.UseZones == true then
         
-            for k=1, #Config.Locations do
-                floors[k] = PolyZone:Create(Config.Locations[k].polyzone, {
+            --for k=1, #Config.Locations do
+            for k,v in pairs(Config.Locations) do
+                floors[k] = PolyZone:Create(v.polyzone, {
                     name="elevator"..k,
-                    minZ = 	Config.Locations[k].minZ,
-                    maxZ = Config.Locations[k].maxZ,
+                    minZ = 	v.coords.z-1,
+                    maxZ = v.coords.z+1,
                     debugPoly = false
                 })
                 floors[k]:onPlayerInOut(function(isPointInside)
