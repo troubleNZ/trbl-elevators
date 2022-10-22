@@ -6,8 +6,7 @@ local playerPed = PlayerPedId()
 local playerCoords = GetEntityCoords(playerPed)
 local floors = {}
 local inRangeElevator = false
-local closestFloor = nil
-local id = nil
+local closestFloor, id, vehicle, vehicleCoords, isPlayerDriver = nil
 local minimumdistance = 2.0  -- float - meters from zone
 
 
@@ -124,6 +123,18 @@ CreateThread(function()         -- looping get closest floor needs to be optimiz
     end
 end)
 
+CreateThread(function()
+    while (true) do
+        local playerPed = PlayerPedId()
+        local playerCoords = GetEntityCoords(playerPed)
+        vehicle = GetVehiclePedIsIn(playerPed, false)
+        if vehicle ~= 0 then
+            vehicleCoords = GetEntityCoords(vehicle)
+            isPlayerDriver = GetPedInVehicleSeat(vehicle, -1) == playerPed
+        end
+        Wait(500)
+    end
+end)
 
 CreateThread(function()     -- boxzone set up
     
@@ -182,17 +193,28 @@ CreateThread(function()
             local sleep = 1000
             if isLoggedIn and closestFloor then
                 if inRangeElevator then
-                    
-                    sleep = 0
-                    if IsControlJustPressed(0, 38) then
-                        --setCityhallPageState(true, true)
-                        ShowFloorHeaderMenu()
-                        exports['qb-core']:KeyPressed()
-                        Wait(500)
-                        exports['qb-core']:HideText()
-                        sleep = 1000
+                    if Config.Locations[closestFloor].allowVehicle and vehicle ~= 0 and isPlayerDriver ~= nil then
+                        sleep = 0
+                        if IsControlJustPressed(0, 38) then
+                            --setCityhallPageState(true, true)
+                            ShowFloorHeaderMenu()
+                            exports['qb-core']:KeyPressed()
+                            Wait(500)
+                            exports['qb-core']:HideText()
+                            sleep = 1000
+                        end
+                    elseif vehicle == 0 then
+                        sleep = 0
+                        if IsControlJustPressed(0, 38) then
+                            --setCityhallPageState(true, true)
+                            ShowFloorHeaderMenu()
+                            exports['qb-core']:KeyPressed()
+                            Wait(500)
+                            exports['qb-core']:HideText()
+                            sleep = 1000
+                        end
+                        
                     end
-                
                 end
             end
             Wait(sleep)
