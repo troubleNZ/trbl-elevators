@@ -6,7 +6,8 @@ local playerPed = PlayerPedId()
 local playerCoords = GetEntityCoords(playerPed)
 local floors = {}
 local inRangeElevator = false
-local closestFloor, id, vehicle, vehicleCoords, isPlayerDriver = nil
+local closestFloor = nil
+local id = nil
 local minimumdistance = 2.0  -- float - meters from zone
 
 
@@ -34,17 +35,20 @@ local function ShowFloorHeaderMenu()
     if PlayerData.job.name == 'ambulance' and PlayerData.job.grade['level'] ~= 4 then
         headerMenu[#headerMenu+1] = {
             header = Lang:t('text.enter'),
-            params = {}
+            params = {},
+            isMenuHeader = true,
         }
     elseif PlayerData.job.name == 'ambulance' and PlayerData.job.grade['level'] == 4 then
         headerMenu[#headerMenu+1] = {
             header = Lang:t('text.enter_boss'),
-            params = {}
+            params = {},
+            isMenuHeader = true,
         }
     else 
         headerMenu[#headerMenu+1] = {
             header = Lang:t('text.enter_general'),
-            params = {}
+            params = {},
+            isMenuHeader = true,
         }
     end
 
@@ -54,12 +58,14 @@ local function ShowFloorHeaderMenu()
         local flooroption = Config.Locations[closestFloor].choices[j]
         headerMenu[#headerMenu+1] = {
             header = flooroption.label,--closest.choices[j].label,
+            disabled = flooroption.disabled,
             params = {
                 event = 'trbl-Elevators:client:transition',
                 args = {
                     id = flooroption.id,
                     }
             }
+
         }
     end
     
@@ -89,6 +95,22 @@ local function transition(id)
     local heading = choice.heading
     local label = choice.label
     --local ped = PlayerPedId()
+
+    local player = PlayerPedId()
+    local vehicle = GetVehiclePedIsIn(player, false)
+    local entity = player
+
+    if (vehicle ~= 0) then
+        entity = vehicle
+        if (choice.allowedvehicle == false) then
+            BeginTextCommandThefeedPost("STRING")
+            AddTextComponentSubstringPlayerName(Lang:t('error.no_vehicles'))
+            EndTextCommandThefeedPostTicker(true, false)
+            return
+        end
+    end
+
+
     QBCore.Functions.Progressbar("transition_location", Lang:t('success.waiting'), 5000, false, true, {
         disableMovement = true,
         disableCarMovement = true,
@@ -96,16 +118,26 @@ local function transition(id)
         disableCombat = true,
     }, {}, {}, {}, function() -- Done
     end)
-    Citizen.Wait(5000) -- Lets Progress Bar Finish
+    Wait(5000) -- Lets Progress Bar Finish
     
     DoScreenFadeOut(1000)
     while not IsScreenFadedOut() do
-        Citizen.Wait(50)
+        Wait(50)
     end
-    local ped = PlayerPedId()
+    NetworkFadeOutEntity(entity, false, true)
+    Wait(500)
+    --local ped = PlayerPedId()
     --print("Moving to: ".. label)
-    SetEntityCoords(ped, coords)
-    SetEntityHeading(ped, heading)
+    --SetEntityCoords(entity, coords)
+    --SetEntityHeading(entity, heading)
+    SetEntityCoordsNoOffset(entity, coords.x, coords.y, coords.z, false, false, false)
+    SetGameplayCamRelativeHeading(heading)
+    SetGameplayCamRelativePitch(-20.0, 1.0)
+    SetEntityHeading(entity, heading)
+
+    Wait(500)
+    NetworkFadeInEntity(entity, true)
+
     Wait(500)
     DoScreenFadeIn(2000)
 end
@@ -123,18 +155,6 @@ CreateThread(function()         -- looping get closest floor needs to be optimiz
     end
 end)
 
-CreateThread(function()
-    while (true) do
-        local playerPed = PlayerPedId()
-        local playerCoords = GetEntityCoords(playerPed)
-        vehicle = GetVehiclePedIsIn(playerPed, false)
-        if vehicle ~= 0 then
-            vehicleCoords = GetEntityCoords(vehicle)
-            isPlayerDriver = GetPedInVehicleSeat(vehicle, -1) == playerPed
-        end
-        Wait(500)
-    end
-end)
 
 CreateThread(function()     -- boxzone set up
     
@@ -193,28 +213,17 @@ CreateThread(function()
             local sleep = 1000
             if isLoggedIn and closestFloor then
                 if inRangeElevator then
-                    if Config.Locations[closestFloor].allowVehicle and vehicle ~= 0 and isPlayerDriver ~= nil then
-                        sleep = 0
-                        if IsControlJustPressed(0, 38) then
-                            --setCityhallPageState(true, true)
-                            ShowFloorHeaderMenu()
-                            exports['qb-core']:KeyPressed()
-                            Wait(500)
-                            exports['qb-core']:HideText()
-                            sleep = 1000
-                        end
-                    elseif vehicle == 0 then
-                        sleep = 0
-                        if IsControlJustPressed(0, 38) then
-                            --setCityhallPageState(true, true)
-                            ShowFloorHeaderMenu()
-                            exports['qb-core']:KeyPressed()
-                            Wait(500)
-                            exports['qb-core']:HideText()
-                            sleep = 1000
-                        end
-                        
+                    
+                    sleep = 0
+                    if IsControlJustPressed(0, 38) then
+                        --setCityhallPageState(true, true)
+                        ShowFloorHeaderMenu()
+                        exports['qb-core']:KeyPressed()
+                        Wait(500)
+                        exports['qb-core']:HideText()
+                        sleep = 1000
                     end
+                
                 end
             end
             Wait(sleep)
@@ -233,7 +242,7 @@ AddEventHandler('QBCore:Client:OnPlayerLoaded', function()
     --print("Starting Elevators")
 end)
 
-AddEventHandler('QBCore:Client:OnPlayerUnload', function()
+RegisterNetEvent('QBCore:Client:OnPlayerUnload', function()
     isLoggedIn = false
 end)
 
