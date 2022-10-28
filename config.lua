@@ -7,6 +7,9 @@ Config.TargetResourceName = 'qb-target' -- qb-target etc / remember to update th
 Config.Locale = "en"
 Config.Debug    = false
 
+Config.Fadeout = true
+Config.FadeDuration = 1000  -- x2
+
 Config.Locations = {
         {       -- OceanHospitalGround
             label = "Ground Floor",
@@ -382,12 +385,51 @@ Config.Locations = {
             vector2(-143.17350769043, -581.54406738281)
             },
         },
-        
-        --[[ Morgue
-    [164] = {text = "Morgue", dest = {165}, coord = vector3(275.44, -1361.26, 24.3), h = 48.5, veh = false},
-    [165] = {text = "Exit Morgue", dest = {164}, coord = vector3(240.74, -1379.18, 33.55), h = 147.44, veh = false},
-        ]]
-        
-        
-        
+
+        {       -- Morgue entrance
+            label = "Morgue entrance",
+            name = "morgue_entrance", 
+            coords = vector3(-1853.39, -368.79, 41.25),
+            allowVehicle = false,
+            choices = {
+                { label = "Morgue Lobby",         coords = vector3(275.47, -1360.93, 24.54), heading = 49.87,  disabled = false, allowedvehicle = false,  progbarTextOverride = "Morgue",  id = 1},
+            
+            },
+            boxzone = {-- qb-target options 
+                length = 2.5,
+                width = 2.5,
+                
+                heading = 133.64,
+            },
+            polyzone = {   -- polyzone and showui
+                vector2(-1852.8211669922, -370.58447265625),
+                vector2(-1855.4008789062, -368.29260253906),
+                vector2(-1854.2301025391, -366.96008300781),
+                vector2(-1851.7235107422, -369.28759765625)
+                
+            },
+        },
+        {       -- Morgue entrance
+            label = "Morgue Lobby",
+            name = "morgue_lobby", 
+            coords = vector3(275.47, -1360.93, 24.54),
+            allowVehicle = true,
+            choices = {
+                { label = "Morgue Exit",         coords = vector3(-1853.39, -368.79, 41.25), heading = 304.37,  disabled = false, allowedvehicle = false,  progbarTextOverride = "Leaving the Morgue",  id = 1},
+            
+            },
+            boxzone = {-- qb-target options 
+                length = 3.5,
+                width = 3.5,
+                
+                heading = 49.87,
+            },
+            polyzone = {   -- polyzone and showui
+                vector2(277.35855102539, -1360.5970458984),
+                vector2(275.16094970703, -1363.1441650391),
+                vector2(273.95953369141, -1362.2036132812),
+                vector2(276.12704467773, -1359.7043457031)
+            },
+        },
+                
 }

@@ -110,8 +110,9 @@ local function transition(id)
         end
     end
 
+    local progbaroverride = choice.progbarTextOverride or Lang:t('success.waiting')
 
-    QBCore.Functions.Progressbar("transition_location", Lang:t('success.waiting'), 5000, false, true, {
+    QBCore.Functions.Progressbar("transition_location", progbaroverride, 5000, false, true, {
         disableMovement = true,
         disableCarMovement = true,
         disableMouse = false,
@@ -120,9 +121,11 @@ local function transition(id)
     end)
     Wait(5000) -- Lets Progress Bar Finish
     
-    DoScreenFadeOut(1000)
-    while not IsScreenFadedOut() do
-        Wait(50)
+    if Config.Fadeout == true then
+        DoScreenFadeOut(Config.FadeDuration)
+        while not IsScreenFadedOut() do
+            Wait(50)
+        end
     end
     NetworkFadeOutEntity(entity, false, true)
     Wait(500)
@@ -137,9 +140,10 @@ local function transition(id)
 
     Wait(500)
     NetworkFadeInEntity(entity, true)
-
-    Wait(500)
-    DoScreenFadeIn(2000)
+    if Config.Fadeout == true then
+        Wait(500)
+        DoScreenFadeIn(Config.FadeDuration)
+    end   
 end
 
 -- Threads
