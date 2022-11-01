@@ -1,7 +1,9 @@
 Config = {}
 
 Config.UseTarget = true -- use one method only or risk your sanity
-Config.UseZones = true
+Config.UseZones = true      -- necessary for all methods except third-eye
+Config.UseDrawtext = true  -- use drawtext popup
+Config.UseAltMenu = false    -- use headermenu
 Config.AllowBlips = true    -- Global toggle
 Config.TargetResourceName = 'qb-target' -- qb-target etc / remember to update the fxmanifest too
 Config.Locale = "en"

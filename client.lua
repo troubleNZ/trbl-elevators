@@ -82,6 +82,27 @@ local function ShowFloorHeaderMenu()
     exports['qb-menu']:openMenu(headerMenu)
 end
 
+local function ShowFloorinitialMenu()
+    local headerMenu = {}
+
+
+        headerMenu[#headerMenu+1] = {
+            header = Lang:t('info.welcome'),
+            params = {},
+            isMenuHeader = true,
+        }
+     
+    --menu footer with close
+    headerMenu[#headerMenu+1] = {
+        header = Lang:t('text.open_menu'),
+        txt = "",
+        params = {
+            event = "trbl-Elevators:ShowMenu"
+        }
+    }
+
+    exports['qb-menu']:showHeader(headerMenu)
+end
 
 
 local function CloseMenuFull()
@@ -130,10 +151,6 @@ local function transition(id)
     end
     NetworkFadeOutEntity(entity, false, true)
     Wait(500)
-    --local ped = PlayerPedId()
-    --print("Moving to: ".. label)
-    --SetEntityCoords(entity, coords)
-    --SetEntityHeading(entity, heading)
     SetEntityCoordsNoOffset(entity, coords.x, coords.y, coords.z, false, false, false)
     SetGameplayCamRelativeHeading(heading)
     SetGameplayCamRelativePitch(-20.0, 1.0)
@@ -164,7 +181,6 @@ local function CreateBlips()
     end
 end
 
-
 -- Threads
 
 CreateThread(function()         -- looping get closest floor needs to be optimized
@@ -177,7 +193,6 @@ CreateThread(function()         -- looping get closest floor needs to be optimiz
         Wait(2500)
     end
 end)
-
 
 CreateThread(function()     -- boxzone set up
     
@@ -206,8 +221,6 @@ CreateThread(function()     -- boxzone set up
     end
     
     if Config.UseZones == true then
-        
-            --for k=1, #Config.Locations do
             for k,v in pairs(Config.Locations) do
                 floors[k] = PolyZone:Create(v.polyzone, {
                     name="elevator"..v.name,
@@ -219,10 +232,18 @@ CreateThread(function()     -- boxzone set up
                     if isPointInside then
                         inRangeElevator = true
                         --print("inRangeElevator ".. inRangeElevator)
-                        exports['qb-core']:DrawText(Lang:t('text.showmenu'))
+                        if Config.UseDrawtext == true then  
+                            exports['qb-core']:DrawText(Lang:t('text.showmenu'))
+                        elseif Config.UseAltMenu == true then
+                            ShowFloorinitialMenu()
+                        end
                     else
                         inRangeElevator = false
-                        exports['qb-core']:HideText()       -- is this ok here? will it close other popup text accidentally?
+                        if Config.UseDrawtext == true then
+                            exports['qb-core']:HideText()
+                        elseif Config.UseAltMenu == true then
+                            exports['qb-menu']:closeMenu()
+                        end
                     end
                 end)
                 if Config.Debug then
@@ -230,16 +251,13 @@ CreateThread(function()     -- boxzone set up
                 end
             end
     end
-
     if Config.AllowBlips == true then
         CreateBlips()
     end
-
 end)
 
 
 CreateThread(function()
-
     if Config.UseZones then
         while true do
             local sleep = 1000
@@ -247,31 +265,29 @@ CreateThread(function()
                 if inRangeElevator then
                     
                     sleep = 0
-                    if IsControlJustPressed(0, 38) then
-                        --setCityhallPageState(true, true)
-                        ShowFloorHeaderMenu()
-                        exports['qb-core']:KeyPressed()
-                        Wait(500)
-                        exports['qb-core']:HideText()
-                        sleep = 1000
+                    if Config.UseDrawtext == true then
+                        if IsControlJustPressed(0, 38) then
+                            
+                            ShowFloorHeaderMenu()
+                            exports['qb-core']:KeyPressed()
+                            Wait(500)
+                            exports['qb-core']:HideText()
+                            sleep = 1000
+                        end
                     end
-                
                 end
             end
             Wait(sleep)
         end
     end
+
 end)
-
-
 
 -- Events
 
 AddEventHandler('QBCore:Client:OnPlayerLoaded', function()
     PlayerData = QBCore.Functions.GetPlayerData()
     isLoggedIn = true
-    --getClosestFloor()  
-    --print("Starting Elevators")
 end)
 
 RegisterNetEvent('QBCore:Client:OnPlayerUnload', function()
@@ -283,8 +299,6 @@ AddEventHandler('onResourceStart', function(resource)
 		Wait(200)
         PlayerData = QBCore.Functions.GetPlayerData()
 		isLoggedIn = true
-        
-        --print(resource .." restarted")
 	end
 end)
 
@@ -294,6 +308,10 @@ AddEventHandler('onResourceStop', function(resource)
             exports[Config.TargetResourceName]:RemoveZone(v.name) 
         end 
     end 
+end)
+
+RegisterNetEvent('trbl-Elevators:ShowMenu', function()
+    ShowFloorinitialMenu()
 end)
 
 RegisterNetEvent('trbl-Elevators:ShowMenu', function()

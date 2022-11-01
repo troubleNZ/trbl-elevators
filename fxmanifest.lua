@@ -2,7 +2,7 @@ fx_version 'cerulean'
 game 'gta5'
 
 description 'Trbl-Elevators'
-version '1.0.8'
+version '1.0.8.1'
 author 'TroubleshooterNZ'
 repository 'https://github.com/troubleNZ/trbl-elevators'
 
@@ -18,8 +18,19 @@ shared_scripts {
 	'@PolyZone/ComboZone.lua',
 }
 
-server_script 'server.lua'
-client_scripts 'client.lua'
+server_scripts {
+    --'@oxmysql/lib/MySQL.lua',
+    --'server/main.lua'
+	'server.lua',
+}
+
+client_scripts {
+	'client.lua',
+	--'client/gui.lua',
+	--'@PolyZone/client.lua',
+	--'@PolyZone/BoxZone.lua',
+	--'@PolyZone/CircleZone.lua',
+}
 
 dependencies {
 	'qb-core',
