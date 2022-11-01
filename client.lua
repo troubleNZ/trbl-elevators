@@ -5,6 +5,7 @@ local isLoggedIn = LocalPlayer.state.isLoggedIn
 local playerPed = PlayerPedId()
 local playerCoords = GetEntityCoords(playerPed)
 local floors = {}
+local blips = {}
 local inRangeElevator = false
 local closestFloor = nil
 local id = nil
@@ -146,6 +147,24 @@ local function transition(id)
     end   
 end
 
+
+local function CreateBlips()
+    for k,v in pairs(Config.Locations) do
+        if v.showBlip then   
+            blips[k] = AddBlipForCoord(v.coords)
+            SetBlipSprite(blips[k], v.blipSprite)
+            SetBlipDisplay(blips[k], 5)                 -- local radar minimap only.
+            SetBlipScale(blips[k], v.blipScale)
+            SetBlipAsShortRange(blips[k], true)
+            SetBlipColour(blips[k], v.blipColor)
+            BeginTextCommandSetBlipName("STRING")
+            AddTextComponentSubstringPlayerName(v.label)
+            EndTextCommandSetBlipName(blips[k]) 
+        end   
+    end
+end
+
+
 -- Threads
 
 CreateThread(function()         -- looping get closest floor needs to be optimized
@@ -155,7 +174,7 @@ CreateThread(function()         -- looping get closest floor needs to be optimiz
             local playerCoords = GetEntityCoords(playerPed)
             closestFloor = getClosestFloor()
         end
-        Wait(1000)
+        Wait(2500)
     end
 end)
 
@@ -180,7 +199,9 @@ CreateThread(function()     -- boxzone set up
                             } },
                 distance = 2.0
                 })
-            --print("boxzone set up: ".. v.label)       -- debug
+            if Config.Debug then
+                print("boxzone set up: ".. v.label)       -- debug
+            end
         end
     end
     
@@ -204,7 +225,14 @@ CreateThread(function()     -- boxzone set up
                         exports['qb-core']:HideText()       -- is this ok here? will it close other popup text accidentally?
                     end
                 end)
+                if Config.Debug then
+                    print("polyzone set up: ".. v.label)       -- debug
+                end
             end
+    end
+
+    if Config.AllowBlips == true then
+        CreateBlips()
     end
 
 end)

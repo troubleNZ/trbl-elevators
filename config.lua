@@ -2,7 +2,7 @@ Config = {}
 
 Config.UseTarget = true -- use one method only or risk your sanity
 Config.UseZones = true
-
+Config.AllowBlips = true    -- Global toggle
 Config.TargetResourceName = 'qb-target' -- qb-target etc / remember to update the fxmanifest too
 Config.Locale = "en"
 Config.Debug    = false
@@ -15,6 +15,11 @@ Config.Locations = {
             label = "Ground Floor",
             name = "OceanHospitalGroundFloor", 
             coords = vector3(-1843.02, -341.89, 48.8),
+            showBlip = true,
+            blipSprite = 826,
+            blipColor = 32,
+            blipScale = 0.3,
+
             allowVehicle = false,
             choices = {
                 { label = "Sub Level 2",         coords = vector3(-1850.19, -342.26, 41.25), heading = 0.0,    disabled = false, allowedvehicle = false,  id = 1},
@@ -112,6 +117,10 @@ Config.Locations = {
             label = "Imports Garage",
             name = "ImportsGarage1stFloor", 
             coords = vector3(-1586.29, -561.42, 86.5),
+            showBlip = true,
+            blipSprite = 826,
+            blipColor = 32,
+            blipScale = 0.3,
             allowVehicle = false,
             choices = {
                 { label = "Exit Garage",         coords = vector3(-1585.28, -571.08, 34.98), heading = 192.94,  disabled = false, allowedvehicle = false,    id = 1},
@@ -159,6 +168,10 @@ Config.Locations = {
             name = "MazeBank-Lobby", 
             coords = vector3(-68.69, -801.04, 44.22),
             allowVehicle = false,
+            showBlip = true,
+            blipSprite = 826,
+            blipColor = 32,
+            blipScale = 0.3,
             choices = {
                 { label = "MazeBank Offices",         coords = vector3(-75.46, -827.14, 242.50), heading = 67.20,   disabled = false, allowedvehicle = false,   id = 1},
                 { label = "MazeBank HeliPad",         coords = vector3(-75.21, -824.83, 321.29), heading = 157.83,  disabled = false, allowedvehicle = false,    id = 2},
@@ -252,6 +265,7 @@ Config.Locations = {
             label = "Nightclub",
             name = "Nightclub_Exit", 
             coords = vector3(-1569.37, -3017.17, -74.41),
+            
             allowVehicle = false,
             choices = {
                 { label = "Exit Nightclub",         coords = vector3(371.96, 253.07, 102.01), heading = 333.63,  disabled = false, allowedvehicle = false,    id = 1},
@@ -274,6 +288,10 @@ Config.Locations = {
             label = "Nightclub Entrance",
             name = "Nightclub_Entrance", 
             coords = vector3(371.96, 253.07, 102.01),
+            showBlip = true,
+            blipSprite = 826,
+            blipColor = 32,
+            blipScale = 0.3,
             allowVehicle = false,
             choices = {
                 { label = "Enter Nightclub",         coords = vector3(-1569.37, -3017.17, -74.41), heading = 124.52,  disabled = false, allowedvehicle = false,    id = 1},
@@ -364,9 +382,13 @@ Config.Locations = {
             },
         },
         {       -- arcadius garage vehicle lift
-            label = "arcadius Garage vehicle Elevator",
+            label = "Arcadius Garage vehicle Elevator",
             name = "arcadius_garage", 
             coords = vector3(-144.18, -576.48, 32.15),
+            showBlip = true,
+            blipSprite = 826,
+            blipColor = 32,
+            blipScale = 0.3,
             allowVehicle = true,
             choices = {
                 { label = "Arcadius Workshop",         coords = vector3(-142.4, -588.91, 166.73), heading = 129.76,  disabled = false, allowedvehicle = true,    id = 1},
