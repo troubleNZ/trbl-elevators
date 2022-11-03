@@ -12,26 +12,12 @@
 
 - Choice between third-eye or DrawText triggered by polyzone.
 - Config for menu, destination choices, boxzones etc.
-- Global Debug option toggle.
+- Global Debug option toggle for the devs
 - transition function uses progress bar and fadeout for aesthetics
+- easily set up one way teleports, many to one, or one to many options.
+- block or allow vehicles per entrance or destination
+- toggle short range blips, best used for lobby, examples in config.
 
-# License
-
-    QBCore Framework
-    Copyright (C) 2021 Joshua Eger
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <https://www.gnu.org/licenses/>
 
 ## Dependencies
 - [qb-core](https://github.com/qbcore-framework/qb-core) - ***Only Supporting Currently / Up to date QBCore Builds***
@@ -41,8 +27,8 @@
 
 ## Installation
 ### Manual
-- Download and unzip the script, rename it to `trbl-elevators` and put it in the `[qb]` directory.
-- Start the server
+- Download and unzip the script, drop into your resources, add it to your server.cfg and ensure it runs after the dependencies.
+
 
 ## Credits
 Wouldnt be doing this if it wasnt for [qb-core](https://github.com/qbcore-framework) ❤️
