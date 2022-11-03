@@ -1,3 +1,8 @@
+![Contributors](https://img.shields.io/github/contributors/troublenz/trbl-elevators?color=aqua&style=plastic)![Commits](https://img.shields.io/github/last-commit/troublenz/trbl-elevators?style=plastic)![License](https://img.shields.io/github/license/troublenz/trbl-elevators?color=aqua&style=plastic)![Size](https://img.shields.io/github/repo-size/troublenz/trbl-elevators?color=aqua&style=plastic)
+
+ 
+
+
 # trbl-elevators
  Elevator style teleport script
 
