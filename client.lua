@@ -310,7 +310,7 @@ AddEventHandler('onResourceStop', function(resource)
     end 
 end)
 
-RegisterNetEvent('trbl-Elevators:ShowMenu', function()
+RegisterNetEvent('trbl-Elevators:ShowInitialMenu', function()
     ShowFloorinitialMenu()
 end)
 
