@@ -30,7 +30,7 @@
 - Download and unzip the script, drop into your resources, add it to your server.cfg and ensure it runs after the dependencies.
 
 ## Example Config
-```
+```lua
        -- -- MazeBank
         
         {       -- -- MazeBank Lobby
