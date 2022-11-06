@@ -17,6 +17,7 @@
 - easily set up one way teleports, many to one, or one to many options.
 - block or allow vehicles per entrance or destination
 - toggle short range blips, best used for lobby, examples in config.
+- coming soon: sound cues (elevator doors, bell etc)
 
 
 ## Dependencies
