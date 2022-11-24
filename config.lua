@@ -9,6 +9,8 @@ Config.TargetResourceName = 'qb-target' -- qb-target etc / remember to update th
 Config.Locale = "en"
 Config.Debug    = false
 
+Config.UseSounds = false
+
 Config.Fadeout = true
 Config.FadeDuration = 1000  -- x2
 
@@ -16,6 +18,7 @@ Config.Locations = {
         {       -- OceanHospitalGround
             label = "Ground Floor",
             name = "OceanHospitalGroundFloor", 
+            menu_type = "Floor",
             coords = vector3(-1843.02, -341.89, 48.8),
             showBlip = true,
             blipSprite = 826,
@@ -24,11 +27,13 @@ Config.Locations = {
 
             allowVehicle = false,
             choices = {
-                { label = "Sub Level 2",         coords = vector3(-1850.19, -342.26, 41.25), heading = 0.0,    disabled = false, allowedvehicle = false,  id = 1},
-                { label = "Ground / Reception",  coords = vector3(-1843.02, -341.89, 48.8),  heading = 0.0,    disabled = true,  id = 2},
-                { label = "Level 2 Helipad",     coords = vector3(-1835.44, -339.02, 58.16), heading = 140.52, disabled = false, allowedvehicle = false,  id = 3},                
-                { label = "Level 8 Office",      coords = vector3(-1829.05, -336.79, 84.06),  heading = 140.4, disabled = false, allowedvehicle = false,  id = 4},
+                { label = "Sub Level 2",         coords = vector3(-1850.19, -342.26, 41.25), heading = 0.0,    disabled = false, allowedvehicle = false, audio = {UseSounds = true,audioName = "elevator_ascend_loop",audioRef = "dlc_xm_facility_entry_exit_sounds",bool = 1}, id = 1},
+                { label = "Ground / Reception",  coords = vector3(-1843.02, -341.89, 48.8),  heading = 0.0,    disabled = true, id = 2},
+                { label = "Level 2 Helipad",     coords = vector3(-1835.44, -339.02, 58.16), heading = 140.52, disabled = false, allowedvehicle = false, audio = {UseSounds = true,audioName = "elevator_ascend_loop",audioRef = "dlc_xm_facility_entry_exit_sounds",bool = 1}, id = 3},                
+                { label = "Level 8 Office",      coords = vector3(-1829.05, -336.79, 84.06),  heading = 140.4, disabled = false, allowedvehicle = false, audio = {UseSounds = true,audioName = "elevator_ascend_loop",audioRef = "dlc_xm_facility_entry_exit_sounds",bool = 1}, id = 4},            
             },
+
+
             boxzone = {-- qb-target options 
                 length = 1.5,
                 width = 1.5,                
@@ -40,17 +45,19 @@ Config.Locations = {
                 vector2(-1843.02-2, -341.89-2),
                 vector2(-1843.02+2, -341.89-2),
             },
+            audio = {UseSounds = true,audioName = "FBI_01_DMW_LIFT_ARRIVE",audioRef = "FBI_01_SOUNDS",bool = 1},
         },
         {       -- OceanHospital-LevelBasement2
             label = "B2 - Emergency Entrance",
             name = "OceanHospitalEmergencyFloor",
+            menu_type = "Floor",
             coords = vector3(-1850.19, -342.26, 41.25),
             allowVehicle = false,
             choices = {                
                 { label = "Sub Level 2",         coords = vector3(-1850.19, -342.26, 41.25), heading = 0.0,    disabled = true,  id = 1},
-                { label = "Ground / Reception",  coords = vector3(-1843.02, -341.89, 48.8),  heading = 0.0,    disabled = false, allowedvehicle = false,  id = 2},
-                { label = "Level 2 Helipad",     coords = vector3(-1835.44, -339.02, 58.16), heading = 140.52, disabled = false, allowedvehicle = false,  id = 3},                
-                { label = "Level 8 Office",      coords = vector3(-1829.05, -336.79, 84.06), heading = 140.4,  disabled = false, allowedvehicle = false,  id = 4},
+                { label = "Ground / Reception",  coords = vector3(-1843.02, -341.89, 48.8),  heading = 0.0,    disabled = false, allowedvehicle = false, audio = {UseSounds = false,audioName = "elevator_ascend_loop",audioRef = "dlc_xm_facility_entry_exit_sounds",bool = 1}, id = 2},
+                { label = "Level 2 Helipad",     coords = vector3(-1835.44, -339.02, 58.16), heading = 140.52, disabled = false, allowedvehicle = false, audio = {UseSounds = false,audioName = "elevator_ascend_loop",audioRef = "dlc_xm_facility_entry_exit_sounds",bool = 1}, id = 3},                
+                { label = "Level 8 Office",      coords = vector3(-1829.05, -336.79, 84.06), heading = 140.4,  disabled = false, allowedvehicle = false, audio = {UseSounds = false,audioName = "elevator_ascend_loop",audioRef = "dlc_xm_facility_entry_exit_sounds",bool = 1}, id = 4},
             },
             boxzone = {-- qb-target options 
                 length = 1.5,
@@ -64,17 +71,19 @@ Config.Locations = {
             vector2(-1841.88671875, -342.49426269531),
             vector2(-1846.6682128906, -346.32382202148)
             },
+            audio = {UseSounds = true,audioName = "FBI_01_DMW_LIFT_ARRIVE",audioRef = "FBI_01_SOUNDS",bool = 1},
         },
         {       -- OceanHospital-Level2Heli
             label = "L2 - Emergency Heli Entrance",
             name = "OceanHospitalEmergencyFloor", 
+            menu_type = "Floor",
             coords = vector3(-1835.37, -338.9, 58.16),
             allowVehicle = false,
             choices = {
-                { label = "Sub Level 2",         coords = vector3(-1850.19, -342.26, 41.25), heading = 0.0,    disabled = false, allowedvehicle = false,  id = 1},
-                { label = "Ground / Reception",  coords = vector3(-1843.02, -341.89, 48.8),  heading = 0.0,    disabled = false, allowedvehicle = false,  id = 2},
+                { label = "Sub Level 2",         coords = vector3(-1850.19, -342.26, 41.25), heading = 0.0,    disabled = false, allowedvehicle = false, audio = {UseSounds = false,audioName = "elevator_ascend_loop",audioRef = "dlc_xm_facility_entry_exit_sounds",bool = 1}, id = 1},
+                { label = "Ground / Reception",  coords = vector3(-1843.02, -341.89, 48.8),  heading = 0.0,    disabled = false, allowedvehicle = false, audio = {UseSounds = false,audioName = "elevator_ascend_loop",audioRef = "dlc_xm_facility_entry_exit_sounds",bool = 1}, id = 2},
                 { label = "Level 2 Helipad",     coords = vector3(-1835.44, -339.02, 58.16), heading = 140.52, disabled = true,  id = 3},                
-                { label = "Level 8 Office",      coords = vector3(-1829.05, -336.79, 84.06),  heading = 140.4, disabled = false, allowedvehicle = false,  id = 4},
+                { label = "Level 8 Office",      coords = vector3(-1829.05, -336.79, 84.06),  heading = 140.4, disabled = false, allowedvehicle = false, audio = {UseSounds = false,audioName = "elevator_ascend_loop",audioRef = "dlc_xm_facility_entry_exit_sounds",bool = 1}, id = 4},
             },
             boxzone = {-- qb-target options 
                 length = 1.5,
@@ -88,16 +97,18 @@ Config.Locations = {
                 vector2(-1835.37-2, -338.9-2),
                 vector2(-1835.37+2, -338.9-2),
             },
+            audio = {UseSounds = true,audioName = "FBI_01_DMW_LIFT_ARRIVE",audioRef = "FBI_01_SOUNDS",bool = 1},
         },
         {       -- OceanHospital-Level8Offices
             label = "L8 - Executive Level",
             name = "OceanHospitalEmergencyFloor", 
+            menu_type = "Floor",
             coords = vector3(-1829.05, -336.79, 84.06),
             allowVehicle = false,
             choices = {
-                { label = "Sub Level 2",         coords = vector3(-1850.19, -342.26, 41.25), heading = 0.0,    disabled = false, allowedvehicle = false,  id = 1},
-                { label = "Ground / Reception",  coords = vector3(-1843.02, -341.89, 48.8),  heading = 0.0,    disabled = false, allowedvehicle = false,  id = 2},
-                { label = "Level 2 Helipad",     coords = vector3(-1835.44, -339.02, 58.16), heading = 140.52, disabled = false, allowedvehicle = false,  id = 3},                
+                { label = "Sub Level 2",         coords = vector3(-1850.19, -342.26, 41.25), heading = 0.0,    disabled = false, allowedvehicle = false, audio = {UseSounds = false,audioName = "elevator_ascend_loop",audioRef = "dlc_xm_facility_entry_exit_sounds",bool = 1}, id = 1},
+                { label = "Ground / Reception",  coords = vector3(-1843.02, -341.89, 48.8),  heading = 0.0,    disabled = false, allowedvehicle = false, audio = {UseSounds = false,audioName = "elevator_ascend_loop",audioRef = "dlc_xm_facility_entry_exit_sounds",bool = 1}, id = 2},
+                { label = "Level 2 Helipad",     coords = vector3(-1835.44, -339.02, 58.16), heading = 140.52, disabled = false, allowedvehicle = false, audio = {UseSounds = false,audioName = "elevator_ascend_loop",audioRef = "dlc_xm_facility_entry_exit_sounds",bool = 1}, id = 3},                
                 { label = "Level 8 Office",      coords = vector3(-1829.05, -336.79, 84.06),  heading = 140.4, disabled = true,  id = 4},
             },
             boxzone = {-- qb-target options          
@@ -112,12 +123,14 @@ Config.Locations = {
                 vector2(-1829.6042480469, -339.59857177734),
                 vector2(-1831.9040527344, -338.20358276367)
             },
+            audio = {UseSounds = true,audioName = "FBI_01_DMW_LIFT_ARRIVE",audioRef = "FBI_01_SOUNDS",bool = 1},
         },
                     -- Imports Garage
 
         {       -- Imports Garage
             label = "Imports Garage",
             name = "ImportsGarage1stFloor", 
+            menu_type = "Floor",
             coords = vector3(-1586.29, -561.42, 86.5),
             showBlip = true,
             blipSprite = 826,
@@ -125,7 +138,7 @@ Config.Locations = {
             blipScale = 0.3,
             allowVehicle = false,
             choices = {
-                { label = "Exit Garage",         coords = vector3(-1585.28, -571.08, 34.98), heading = 192.94,  disabled = false, allowedvehicle = false,    id = 1},
+                { label = "Exit Garage",         coords = vector3(-1585.28, -571.08, 34.98), heading = 192.94,  disabled = false, allowedvehicle = false, audio = {UseSounds = false,audioName = "elevator_ascend_loop",audioRef = "dlc_xm_facility_entry_exit_sounds",bool = 1},   id = 1},
                
             },
             boxzone = {-- qb-target options 
@@ -140,14 +153,16 @@ Config.Locations = {
                 vector2(-1583.9642333984, -561.47790527344),
                 vector2(-1586.7416992188, -563.66101074219)
             },
+            audio = {UseSounds = true,audioName = "FBI_01_DMW_LIFT_ARRIVE",audioRef = "FBI_01_SOUNDS",bool = 1},
         },
         {       -- Imports Garage
             label = "Imports Garage",
             name = "ImportsGarageGroundFloor", 
+            menu_type = "Floor",
             coords = vector3(-1585.07, -570.83, 34.98),
             allowVehicle = false,
             choices = {
-                { label = "Imports Garage",         coords = vector3(-1584.6, -564.2, 86.5), heading = 124.52,  disabled = false, allowedvehicle = false,    id = 1},
+                { label = "Imports Garage",         coords = vector3(-1584.6, -564.2, 86.5), heading = 124.52,  disabled = false, allowedvehicle = false, audio = {UseSounds = false,audioName = "elevator_ascend_loop",audioRef = "dlc_xm_facility_entry_exit_sounds",bool = 1},   id = 1},
                
             },
             boxzone = {-- qb-target options 
@@ -162,12 +177,15 @@ Config.Locations = {
                 vector2(-1586.0440673828, -572.87860107422),
                 vector2(-1587.3558349609, -570.12554931641)
             },
+            audio = {UseSounds = true,audioName = "FBI_01_DMW_LIFT_ARRIVE",audioRef = "FBI_01_SOUNDS",bool = 1},
         },
+        
                 -- -- MazeBank
         
         {       -- -- MazeBank Lobby
             label = "MazeBank-Lobby",
             name = "MazeBank-Lobby", 
+            menu_type = "Floor",
             coords = vector3(-68.69, -801.04, 44.22),
             allowVehicle = false,
             showBlip = true,
@@ -195,6 +213,7 @@ Config.Locations = {
         {       -- -- MazeBank  HeliPad
             label = "MazeBank HeliPad",
             name = "MazeBank-HeliPad", 
+            menu_type = "Floor",
             coords = vector3(-75.21, -824.83, 321.29),
             allowVehicle = false,
             choices = {
@@ -218,6 +237,7 @@ Config.Locations = {
         {       -- -- MazeBank  Offices
             label = "MazeBank Offices",
             name = "MazeBank-Offices", 
+            menu_type = "Floor",
             coords = vector3(-75.46, -827.14, 242.50),
             allowVehicle = false,
             choices = {
@@ -241,6 +261,7 @@ Config.Locations = {
         {       -- -- MazeBank  Modshop
             label = "MazeBank Modshop",
             name = "MazeBank-Modshop", 
+            menu_type = "Floor",
             coords = vector3(-70.08, -827.78, 285.00),
             allowVehicle = false,
             choices = {
@@ -266,6 +287,9 @@ Config.Locations = {
         {       -- Nightclub Inside Exit
             label = "Nightclub",
             name = "Nightclub_Exit", 
+            drawtxtmodifier = "NightClub Door",
+            menu_type = "Club",
+            waiting = "Leaving Venue",
             coords = vector3(-1569.37, -3017.17, -74.41),
             
             allowVehicle = false,
@@ -289,6 +313,9 @@ Config.Locations = {
         {       -- Nightclub Entrance
             label = "Nightclub Entrance",
             name = "Nightclub_Entrance", 
+            drawtxtmodifier = "NightClub Door",
+            menu_type = "Destination",
+            waiting = "Bouncer checking ID..",
             coords = vector3(371.96, 253.07, 102.01),
             showBlip = true,
             blipSprite = 826,
@@ -413,6 +440,7 @@ Config.Locations = {
         {       -- Morgue entrance
             label = "Morgue entrance",
             name = "morgue_entrance", 
+            waiting = "Entering Morgue",
             coords = vector3(-1853.39, -368.79, 41.25),
             allowVehicle = false,
             choices = {
@@ -436,6 +464,7 @@ Config.Locations = {
         {       -- Morgue entrance
             label = "Morgue Lobby",
             name = "morgue_lobby", 
+            waiting = "Leaving Morgue",
             coords = vector3(275.47, -1360.93, 24.54),
             allowVehicle = true,
             choices = {
@@ -456,4 +485,293 @@ Config.Locations = {
             },
         },
                 
-}
+        
+        --  Eclipse Towers Apartments
+        {   -- Eclipse Lobby
+            label = "Eclipse-Towers-Lobby",
+            name = "Eclipse-Towers-Lobby", 
+            coords = vector3(-774.29, 317.89, 85.66),
+            allowVehicle = false,
+            showBlip = true,
+            blipSprite = 826,
+            blipColor = 32,
+            blipScale = 0.3,
+            choices = {
+                { label = "Eclipse-Towers-Lobby",     coords = vector3(-774.29, 317.89, 85.66), heading = 174.73,   disabled = false, allowedvehicle = false,   id = 1},
+                { label = "Eclipse-Towers-Apt1",      coords = vector3(-781.79, 325.83, 176.8), heading = 173.19,  disabled = false, allowedvehicle = false,    id = 2},
+                { label = "Eclipse-Towers-Apt2",      coords = vector3(-786.65, 315.54, 187.91), heading = 272.34,  disabled = false, allowedvehicle = false,    id = 3},
+                { label = "Eclipse-Towers-Apt3",      coords = vector3(-774.3, 342.03, 196.69), heading = 87.13,  disabled = false, allowedvehicle = false,    id = 4},
+                { label = "Eclipse-Towers-Apt4",      coords = vector3(-774.18, 331.49, 207.62), heading = 0.19,  disabled = false, allowedvehicle = false,    id = 5},
+                { label = "Eclipse-Towers-Apt5",      coords = vector3(-784.55, 323.7, 212.0), heading = 265.54,  disabled = false, allowedvehicle = false,    id = 6},
+                { label = "Eclipse-Towers-Apt6",      coords = vector3(-781.91, 325.87, 223.26), heading = 180.52,  disabled = false, allowedvehicle = false,    id = 7},
+            
+            },
+            boxzone = {-- qb-target options 
+                length = 2.5,
+                width = 2.5,                
+                heading = 174.73,
+            },
+            polyzone = {   -- polyzone and showui
+                vector2(-779.10913085938, 321.63748168945),
+                vector2(-768.77020263672, 322.38726806641),
+                vector2(-768.70977783203, 315.16925048828),
+                vector2(-779.03619384766, 314.93865966797)
+            },
+        },
+        {   -- Eclipse Apartment level 1
+            label = "Eclipse-Towers-Apt1",
+            name = "Eclipse-Towers-Apt1", 
+            coords = vector3(-781.79, 325.83, 176.8),
+            allowVehicle = false,
+            showBlip = false,
+            blipSprite = 826,
+            blipColor = 32,
+            blipScale = 0.3,
+            choices = {
+                { label = "Eclipse-Towers-Lobby",     coords = vector3(-774.29, 317.89, 85.66), heading = 174.73,   disabled = false, allowedvehicle = false,   id = 1},
+                { label = "Eclipse-Towers-Apt1",      coords = vector3(-781.79, 325.83, 176.8), heading = 173.19,  disabled = false, allowedvehicle = false,    id = 2},
+                { label = "Eclipse-Towers-Apt2",      coords = vector3(-786.65, 315.54, 187.91), heading = 272.34,  disabled = false, allowedvehicle = false,    id = 3},
+                { label = "Eclipse-Towers-Apt3",      coords = vector3(-774.3, 342.03, 196.69), heading = 87.13,  disabled = false, allowedvehicle = false,    id = 4},
+                { label = "Eclipse-Towers-Apt4",      coords = vector3(-774.18, 331.49, 207.62), heading = 0.19,  disabled = false, allowedvehicle = false,    id = 5},
+                { label = "Eclipse-Towers-Apt5",      coords = vector3(-784.55, 323.7, 212.0), heading = 265.54,  disabled = false, allowedvehicle = false,    id = 6},
+                { label = "Eclipse-Towers-Apt6",      coords = vector3(-781.91, 325.87, 223.26), heading = 180.52,  disabled = false, allowedvehicle = false,    id = 7},
+            
+            },
+            boxzone = {-- qb-target options 
+                length = 1.5,
+                width = 1.5,                
+                heading = 174.73,
+            },
+            polyzone = {   -- polyzone and showui
+                vector2(-783.53997802734, 327.80416870117),
+                vector2(-779.79187011719, 327.48236083984),
+                vector2(-779.76062011719, 322.99844360352),
+                vector2(-782.96667480469, 323.11804199219)
+            },
+        },
+        {   -- Eclipse Apartment level 2
+            -- 
+            label = "Eclipse-Towers-Apt2",
+            name = "Eclipse-Towers-Apt2", 
+            coords = vector3(-786.65, 315.54, 187.91),
+            allowVehicle = false,
+            showBlip = false,
+            blipSprite = 826,
+            blipColor = 32,
+            blipScale = 0.3,
+            choices = {
+                { label = "Eclipse-Towers-Lobby",     coords = vector3(-774.29, 317.89, 85.66), heading = 174.73,   disabled = false, allowedvehicle = false,   id = 1},
+                { label = "Eclipse-Towers-Apt1",      coords = vector3(-781.79, 325.83, 176.8), heading = 173.19,  disabled = false, allowedvehicle = false,    id = 2},
+                { label = "Eclipse-Towers-Apt2",      coords = vector3(-786.65, 315.54, 187.91), heading = 272.34,  disabled = false, allowedvehicle = false,    id = 3},
+                { label = "Eclipse-Towers-Apt3",      coords = vector3(-774.3, 342.03, 196.69), heading = 87.13,  disabled = false, allowedvehicle = false,    id = 4},
+                { label = "Eclipse-Towers-Apt4",      coords = vector3(-774.18, 331.49, 207.62), heading = 0.19,  disabled = false, allowedvehicle = false,    id = 5},
+                { label = "Eclipse-Towers-Apt5",      coords = vector3(-784.55, 323.7, 212.0), heading = 265.54,  disabled = false, allowedvehicle = false,    id = 6},
+                { label = "Eclipse-Towers-Apt6",      coords = vector3(-781.91, 325.87, 223.26), heading = 180.52,  disabled = false, allowedvehicle = false,    id = 7},
+            
+            },
+            boxzone = {-- qb-target options 
+                length = 1.5,
+                width = 1.5,                
+                heading = 272.34,
+            },
+            polyzone = {   -- polyzone and showui
+                vector2(-787.60510253906, 314.54574584961),
+                vector2(-787.59252929688, 317.44271850586),
+                vector2(-785.99102783203, 317.32708740234),
+                vector2(-786.17102050781, 314.86697387695)
+            },
+        },
+        {   -- Eclipse Apartment level 3
+            -- 
+            label = "Eclipse-Towers-Apt3",
+            name = "Eclipse-Towers-Apt3", 
+            coords = vector3(-774.3, 342.03, 196.69),
+            allowVehicle = false,
+            showBlip = false,
+            blipSprite = 826,
+            blipColor = 32,
+            blipScale = 0.3,
+            choices = {
+                { label = "Eclipse-Towers-Lobby",     coords = vector3(-774.29, 317.89, 85.66), heading = 174.73,   disabled = false, allowedvehicle = false,   id = 1},
+                { label = "Eclipse-Towers-Apt1",      coords = vector3(-781.79, 325.83, 176.8), heading = 173.19,  disabled = false, allowedvehicle = false,    id = 2},
+                { label = "Eclipse-Towers-Apt2",      coords = vector3(-786.65, 315.54, 187.91), heading = 272.34,  disabled = false, allowedvehicle = false,    id = 3},
+                { label = "Eclipse-Towers-Apt3",      coords = vector3(-774.3, 342.03, 196.69), heading = 87.13,  disabled = false, allowedvehicle = false,    id = 4},
+                { label = "Eclipse-Towers-Apt4",      coords = vector3(-774.18, 331.49, 207.62), heading = 0.19,  disabled = false, allowedvehicle = false,    id = 5},
+                { label = "Eclipse-Towers-Apt5",      coords = vector3(-784.55, 323.7, 212.0), heading = 265.54,  disabled = false, allowedvehicle = false,    id = 6},
+                { label = "Eclipse-Towers-Apt6",      coords = vector3(-781.91, 325.87, 223.26), heading = 180.52,  disabled = false, allowedvehicle = false,    id = 7},
+            
+            },
+            boxzone = {-- qb-target options 
+                length = 1.5,
+                width = 1.5,                
+                heading = 87.13,
+            },
+            polyzone = {   -- polyzone and showui
+                vector2(-773.47619628906, 343.66720581055),
+                vector2(-773.34790039062, 340.12655639648),
+                vector2(-775.38580322266, 340.33871459961),
+                vector2(-774.99682617188, 343.40420532227)
+            },
+        },
+        {   -- Eclipse Apartment level 4
+            -- 
+            label = "Eclipse-Towers-Apt4",
+            name = "Eclipse-Towers-Apt4", 
+            coords = vector3(-774.18, 331.49, 207.62),
+            allowVehicle = false,
+            showBlip = false,
+            blipSprite = 826,
+            blipColor = 32,
+            blipScale = 0.3,
+            choices = {
+                { label = "Eclipse-Towers-Lobby",     coords = vector3(-774.29, 317.89, 85.66), heading = 174.73,   disabled = false, allowedvehicle = false,   id = 1},
+                { label = "Eclipse-Towers-Apt1",      coords = vector3(-781.79, 325.83, 176.8), heading = 173.19,  disabled = false, allowedvehicle = false,    id = 2},
+                { label = "Eclipse-Towers-Apt2",      coords = vector3(-786.65, 315.54, 187.91), heading = 272.34,  disabled = false, allowedvehicle = false,    id = 3},
+                { label = "Eclipse-Towers-Apt3",      coords = vector3(-774.3, 342.03, 196.69), heading = 87.13,  disabled = false, allowedvehicle = false,    id = 4},
+                { label = "Eclipse-Towers-Apt4",      coords = vector3(-774.18, 331.49, 207.62), heading = 0.19,  disabled = false, allowedvehicle = false,    id = 5},
+                { label = "Eclipse-Towers-Apt5",      coords = vector3(-784.55, 323.7, 212.0), heading = 265.54,  disabled = false, allowedvehicle = false,    id = 6},
+                { label = "Eclipse-Towers-Apt6",      coords = vector3(-781.91, 325.87, 223.26), heading = 180.52,  disabled = false, allowedvehicle = false,    id = 7},
+            
+            },
+            boxzone = {-- qb-target options 
+                length = 1.5,
+                width = 1.5,                
+                heading = 0.19,
+            },
+            polyzone = {   -- polyzone and showui
+                vector2(-772.78942871094, 329.6549987793),
+                vector2(-775.82434082031, 329.54385375977),
+                vector2(-776.15100097656, 335.01943969727),
+                vector2(-772.81298828125, 334.58660888672)
+            },
+        },
+        {   -- Eclipse Apartment level 5
+            -- 
+            label = "Eclipse-Towers-Apt5",
+            name = "Eclipse-Towers-Apt5", 
+            coords = vector3(-784.55, 323.7, 212.0),
+            allowVehicle = false,
+            showBlip = false,
+            blipSprite = 826,
+            blipColor = 32,
+            blipScale = 0.3,
+            choices = {
+                { label = "Eclipse-Towers-Lobby",     coords = vector3(-774.29, 317.89, 85.66), heading = 174.73,   disabled = false, allowedvehicle = false,   id = 1},
+                { label = "Eclipse-Towers-Apt1",      coords = vector3(-781.79, 325.83, 176.8), heading = 173.19,  disabled = false, allowedvehicle = false,    id = 2},
+                { label = "Eclipse-Towers-Apt2",      coords = vector3(-786.65, 315.54, 187.91), heading = 272.34,  disabled = false, allowedvehicle = false,    id = 3},
+                { label = "Eclipse-Towers-Apt3",      coords = vector3(-774.3, 342.03, 196.69), heading = 87.13,  disabled = false, allowedvehicle = false,    id = 4},
+                { label = "Eclipse-Towers-Apt4",      coords = vector3(-774.18, 331.49, 207.62), heading = 0.19,  disabled = false, allowedvehicle = false,    id = 5},
+                { label = "Eclipse-Towers-Apt5",      coords = vector3(-784.55, 323.7, 212.0), heading = 265.54,  disabled = false, allowedvehicle = false,    id = 6},
+                { label = "Eclipse-Towers-Apt6",      coords = vector3(-781.91, 325.87, 223.26), heading = 180.52,  disabled = false, allowedvehicle = false,    id = 7},
+            
+            },
+            boxzone = {-- qb-target options 
+                length = 1.5,
+                width = 1.5,                
+                heading = 265.54,
+            },
+            polyzone = {   -- polyzone and showui
+                vector2(-785.27001953125, 322.06460571289),
+                vector2(-785.25360107422, 325.25140380859),
+                vector2(-782.71856689453, 325.3037109375),
+                vector2(-783.03118896484, 321.95321655273)
+            },
+        },
+        {   -- Eclipse Apartment level 6
+            -- 
+            label = "Eclipse-Towers-Apt6",
+            name = "Eclipse-Towers-Apt6", 
+            coords = vector3(-781.91, 325.87, 223.26),
+            allowVehicle = false,
+            showBlip = false,
+            blipSprite = 826,
+            blipColor = 32,
+            blipScale = 0.3,
+            choices = {
+                { label = "Eclipse-Towers-Lobby",     coords = vector3(-774.29, 317.89, 85.66), heading = 174.73,   disabled = false, allowedvehicle = false,   id = 1},
+                { label = "Eclipse-Towers-Apt1",      coords = vector3(-781.79, 325.83, 176.8), heading = 173.19,  disabled = false, allowedvehicle = false,    id = 2},
+                { label = "Eclipse-Towers-Apt2",      coords = vector3(-786.65, 315.54, 187.91), heading = 272.34,  disabled = false, allowedvehicle = false,    id = 3},
+                { label = "Eclipse-Towers-Apt3",      coords = vector3(-774.3, 342.03, 196.69), heading = 87.13,  disabled = false, allowedvehicle = false,    id = 4},
+                { label = "Eclipse-Towers-Apt4",      coords = vector3(-774.18, 331.49, 207.62), heading = 0.19,  disabled = false, allowedvehicle = false,    id = 5},
+                { label = "Eclipse-Towers-Apt5",      coords = vector3(-784.55, 323.7, 212.0), heading = 265.54,  disabled = false, allowedvehicle = false,    id = 6},
+                { label = "Eclipse-Towers-Apt6",      coords = vector3(-781.91, 325.87, 223.26), heading = 180.52,  disabled = false, allowedvehicle = false,    id = 7},
+            
+            },
+            boxzone = {-- qb-target options 
+                length = 1.5,
+                width = 1.5,                
+                heading = 180.52,
+            },
+            polyzone = {   -- polyzone and showui
+                vector2(-783.47106933594, 327.67990112305),
+                vector2(-780.42272949219, 327.57220458984),
+                vector2(-779.62182617188, 322.4973449707),
+                vector2(-783.54083251953, 322.6477355957)
+            },
+        },
+
+        
+        {   -- Fuku LS AirPort teleport
+            label = "Fukuoka-AirPort-Transfer",
+            name = "Fuku-AirPort", 
+            drawtxtmodifier = "AirPort Transfer",
+            menu_type = "Destination",
+            waiting = "Leaving Los Santos",
+            coords = vector3(-1898.08, -3050.09, 13.23),
+            allowVehicle = true,
+            showBlip = true,
+            blipSprite = 826,
+            blipColor = 32,
+            blipScale = 0.3,
+            choices = {
+                { label = "LS AirPort Transfer",   coords = vector3(-1897.3, -3050.55, 13.23), heading = 239.75,   disabled = true, allowedvehicle = true,   id = 1},
+                { label = "Fukuoka Expressway",     coords = vector3(-4254.0, 8920.34, 11.08), heading = 71.05,   disabled = false, allowedvehicle = true,   id = 2},
+                
+                
+            
+            },
+            boxzone = {-- qb-target options 
+                length = 2.5,
+                width = 2.5,                
+                heading = 174.73,
+            },
+            polyzone = {   -- polyzone and showui
+                vector2(-1907.7583007812, -3051.833984375),
+                vector2(-1901.7303466797, -3040.19921875),
+                vector2(-1890.3857421875, -3046.6982421875),
+                vector2(-1897.6846923828, -3059.2199707031)
+            },
+        },
+        -- Fukuoka Expressway parking lot west side
+        {   -- Fuku Lobby
+            label = "Fukuoka Expressway",
+            name = "Fuku-Lobby", 
+            drawtxtmodifier = "AirPort Transfer",
+            menu_type = "Destination",
+            waiting = "Leaving Japan",
+            coords = vector3(-4254.0, 8920.34, 11.08),
+            allowVehicle = true,
+            showBlip = true,
+            blipSprite = 826,
+            blipColor = 32,
+            blipScale = 0.3,
+            choices = {
+                { label = "LS AirPort Transfer",   coords = vector3(-1897.3, -3050.55, 13.23), heading = 239.75,   disabled = false, allowedvehicle = true,   id = 1},
+                { label = "Fukuoka Expressway",     coords = vector3(-4254.0, 8920.34, 11.08), heading = 71.05,   disabled = true, allowedvehicle = true,   id = 2},
+                
+            
+            },
+            boxzone = {-- qb-target options 
+                length = 10.5,
+                width = 10.5,                
+                heading = 71.05,
+            },
+            polyzone = {   -- polyzone and showui
+                vector2(-4300.326171875, 8921.6943359375),
+                vector2(-4290.798828125, 8949.2021484375),
+                vector2(-4217.1787109375, 8925.7236328125),
+                vector2(-4227.2397460938, 8898.8837890625)
+            },
+        },
+
+    }

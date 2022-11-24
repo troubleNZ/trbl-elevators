@@ -11,7 +11,6 @@ local closestFloor = nil
 local id = nil
 local minimumdistance = 2.0  -- float - meters from zone
 
-
 -- Functions
 
 local function getClosestFloor()
@@ -31,7 +30,6 @@ end
 
 local function ShowFloorHeaderMenu()
     local headerMenu = {}
-
     -- welcome header variable based on job and rank
     if PlayerData.job.name == 'ambulance' and PlayerData.job.grade['level'] ~= 4 then
         headerMenu[#headerMenu+1] = {
@@ -46,11 +44,19 @@ local function ShowFloorHeaderMenu()
             isMenuHeader = true,
         }
     else 
-        headerMenu[#headerMenu+1] = {
-            header = Lang:t('text.enter_general'),
-            params = {},
-            isMenuHeader = true,
+        if not Config.Locations[closestFloor].menu_type then 
+            headerMenu[#headerMenu+1] = {
+                header = Lang:t('text.enter_general'),
+                    params = {},
+                    isMenuHeader = true,
         }
+        else
+            headerMenu[#headerMenu+1] = {
+                header = Lang:t('text.enter_prefix')..Config.Locations[closestFloor].menu_type,
+                params = {},
+                isMenuHeader = true,
+    }
+        end 
     end
 
     -- loop through config list & adding to menu below header
@@ -110,6 +116,40 @@ local function CloseMenuFull()
 end
 
 
+local function vehiclegodmode(coords)
+
+    local invincible = false
+    local player = PlayerPedId()
+    local veh = GetVehiclePedIsIn(player, false)
+    local pedplate = GetVehicleNumberPlateText(veh)
+    local playerCoords = GetEntityCoords(player)
+    local destination = coords
+    local vehcoords = GetEntityCoords(veh)
+    local dist = Vdist(destination,vehcoords)
+
+    if IsPedSittingInVehicle(player, veh) and dist < 5 then 
+        -- make invincible til they move
+
+        SetEntityInvincible(veh, true)
+        SetPlayerInvincible(player, true)
+        invincible = true
+        print('Safety')
+    end
+
+    --[[while dist < 5 do 
+    --    print('looping')
+    --    Wait(1000) 
+    --end
+
+    if dist > 5 and invincible == true then
+        SetEntityInvincible(veh, false)
+        SetPlayerInvincible(player, false)
+        invincible = false
+        print('Safety off')
+    end]]
+
+end
+
 local function transition(id)
     local choiceid = id
     local choice = Config.Locations[closestFloor].choices[choiceid]
@@ -120,6 +160,7 @@ local function transition(id)
 
     local player = PlayerPedId()
     local vehicle = GetVehiclePedIsIn(player, false)
+    --local plate = tostring(GetVehicleNumberPlateText(vehicle))
     local entity = player
 
     if (vehicle ~= 0) then
@@ -131,8 +172,7 @@ local function transition(id)
             return
         end
     end
-
-    local progbaroverride = choice.progbarTextOverride or Lang:t('success.waiting')
+    local progbaroverride = Config.Locations[closestFloor].waiting or Lang:t('success.waiting')
 
     QBCore.Functions.Progressbar("transition_location", progbaroverride, 5000, false, true, {
         disableMovement = true,
@@ -141,28 +181,57 @@ local function transition(id)
         disableCombat = true,
     }, {}, {}, {}, function() -- Done
     end)
-    Wait(5000) -- Lets Progress Bar Finish
-    
+    Wait(500)
     if Config.Fadeout == true then
         DoScreenFadeOut(Config.FadeDuration)
         while not IsScreenFadedOut() do
             Wait(50)
         end
     end
+    -- play audio on transition
+    if choice.audio ~= nil and choice.audio.UseSounds == true then		
+        PlaySound(-1, choice.audio.audioName, choice.audio.audioRef, 0, 0, choice.audio.bool)
+        TriggerServerEvent("InteractSound_SV:PlayOnSource", choice.audio.audioName, 0.2) -- if using an ogg
+    end
+
     NetworkFadeOutEntity(entity, false, true)
     Wait(500)
+    
     SetEntityCoordsNoOffset(entity, coords.x, coords.y, coords.z, false, false, false)
     SetGameplayCamRelativeHeading(heading)
     SetGameplayCamRelativePitch(-20.0, 1.0)
     SetEntityHeading(entity, heading)
+    Wait(4000) -- Lets Progress Bar Finish
 
-    Wait(500)
+    
+
+        -- play audio on arrival
+    if Config.Locations[closestFloor].audio ~= nil and Config.Locations[closestFloor].audio.UseSounds == true then
+        --print(Config.Locations[closestFloor].audio.audioName .. " /" .. Config.Locations[closestFloor].audio.audioRef) --testing
+        --PlaySoundFrontend(-1, Config.Locations[closestFloor].audio.audioName, Config.Locations[closestFloor].audio.audioRef, Config.Locations[closestFloor].audio.audio.bool)
+        PlaySound(-1, Config.Locations[closestFloor].audio.audioName, Config.Locations[closestFloor].audio.audioRef, 0, 0, Config.Locations[closestFloor].audio.bool)
+    end
     NetworkFadeInEntity(entity, true)
+    -- set invincible temporarily for veh
+    
+    Wait(500)
     if Config.Fadeout == true then
         Wait(500)
         DoScreenFadeIn(Config.FadeDuration)
     end   
+    vehiclegodmode(coords)
+    Wait(5000)
+    TriggerEvent("trbl-disableInvincible")
 end
+
+RegisterNetEvent('trbl-disableInvincible', function()
+    --if invincible == true then
+        SetEntityInvincible(entity, false)
+        SetPlayerInvincible(player, false)
+        --invincible = false
+        print('Safety off')
+    --end
+end)
 
 
 local function CreateBlips()
@@ -180,6 +249,8 @@ local function CreateBlips()
         end   
     end
 end
+
+
 
 -- Threads
 
@@ -221,6 +292,7 @@ CreateThread(function()     -- boxzone set up
     end
     
     if Config.UseZones == true then
+            local DisplayText = false
             for k,v in pairs(Config.Locations) do
                 floors[k] = PolyZone:Create(v.polyzone, {
                     name="elevator"..v.name,
@@ -231,16 +303,29 @@ CreateThread(function()     -- boxzone set up
                 floors[k]:onPlayerInOut(function(isPointInside)
                     if isPointInside then
                         inRangeElevator = true
+                        
+
                         --print("inRangeElevator ".. inRangeElevator)
-                        if Config.UseDrawtext == true then  
-                            exports['qb-core']:DrawText(Lang:t('text.showmenu'))
+                        if Config.UseDrawtext == true then
+                            if not DisplayText then  
+
+                                if v.drawtxtmodifier ~= nil then
+                                    exports['qb-core']:DrawText(Lang:t('text.select') ..v.drawtxtmodifier)
+                                else
+                                    exports['qb-core']:DrawText(Lang:t('text.showmenu'))
+                                end
+                                DisplayText = true
+                            end
                         elseif Config.UseAltMenu == true then
                             ShowFloorinitialMenu()
                         end
                     else
                         inRangeElevator = false
                         if Config.UseDrawtext == true then
+                            if DisplayText then
+                                DisplayText = false
                             exports['qb-core']:HideText()
+                            end
                         elseif Config.UseAltMenu == true then
                             exports['qb-menu']:closeMenu()
                         end
@@ -257,7 +342,7 @@ CreateThread(function()     -- boxzone set up
 end)
 
 
-CreateThread(function()
+CreateThread(function()         -- if in zone and IsControlJustPressed(0, 38) open menu
     if Config.UseZones then
         while true do
             local sleep = 1000
