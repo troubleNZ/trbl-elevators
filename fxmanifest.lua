@@ -2,7 +2,7 @@ fx_version 'cerulean'
 game 'gta5'
 
 description 'Trbl-Elevators'
-version '1.0.8.2'
+version '1.0.9.0'
 author 'TroubleshooterNZ'
 repository 'https://github.com/troubleNZ/trbl-elevators'
 
