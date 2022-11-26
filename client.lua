@@ -118,35 +118,25 @@ end
 
 local function vehiclegodmode(coords)
 
-    local invincible = false
+    
     local player = PlayerPedId()
     local veh = GetVehiclePedIsIn(player, false)
-    local pedplate = GetVehicleNumberPlateText(veh)
-    local playerCoords = GetEntityCoords(player)
     local destination = coords
     local vehcoords = GetEntityCoords(veh)
     local dist = Vdist(destination,vehcoords)
+    local target = player
 
-    if IsPedSittingInVehicle(player, veh) and dist < 5 then 
-        -- make invincible til they move
+    if (veh ~= 0) then
+        target = veh
 
-        SetEntityInvincible(veh, true)
-        SetPlayerInvincible(player, true)
-        invincible = true
-        print('Safety')
+        if IsPedSittingInVehicle(player, veh) and dist < 5 then 
+            -- make invincible til they move
+            SetEntityInvincible(target, true)
+            --SetPlayerInvincible(player, true)
+            
+            print('Safety')
+        end
     end
-
-    --[[while dist < 5 do 
-    --    print('looping')
-    --    Wait(1000) 
-    --end
-
-    if dist > 5 and invincible == true then
-        SetEntityInvincible(veh, false)
-        SetPlayerInvincible(player, false)
-        invincible = false
-        print('Safety off')
-    end]]
 
 end
 
@@ -161,10 +151,10 @@ local function transition(id)
     local player = PlayerPedId()
     local vehicle = GetVehiclePedIsIn(player, false)
     --local plate = tostring(GetVehicleNumberPlateText(vehicle))
-    local entity = player
+    local target = player
 
     if (vehicle ~= 0) then
-        entity = vehicle
+        target = vehicle
         if (choice.allowedvehicle == false) then
             BeginTextCommandThefeedPost("STRING")
             AddTextComponentSubstringPlayerName(Lang:t('error.no_vehicles'))
@@ -194,13 +184,13 @@ local function transition(id)
         TriggerServerEvent("InteractSound_SV:PlayOnSource", choice.audio.audioName, 0.2) -- if using an ogg
     end
 
-    NetworkFadeOutEntity(entity, false, true)
+    NetworkFadeOutEntity(target, false, true)
     Wait(500)
     
-    SetEntityCoordsNoOffset(entity, coords.x, coords.y, coords.z, false, false, false)
+    SetEntityCoordsNoOffset(target, coords.x, coords.y, coords.z, false, false, false)
     SetGameplayCamRelativeHeading(heading)
     SetGameplayCamRelativePitch(-20.0, 1.0)
-    SetEntityHeading(entity, heading)
+    SetEntityHeading(target, heading)
     Wait(4000) -- Lets Progress Bar Finish
 
     
@@ -211,7 +201,7 @@ local function transition(id)
         --PlaySoundFrontend(-1, Config.Locations[closestFloor].audio.audioName, Config.Locations[closestFloor].audio.audioRef, Config.Locations[closestFloor].audio.audio.bool)
         PlaySound(-1, Config.Locations[closestFloor].audio.audioName, Config.Locations[closestFloor].audio.audioRef, 0, 0, Config.Locations[closestFloor].audio.bool)
     end
-    NetworkFadeInEntity(entity, true)
+    NetworkFadeInEntity(target, false, true)
     -- set invincible temporarily for veh
     
     Wait(500)
@@ -225,12 +215,15 @@ local function transition(id)
 end
 
 RegisterNetEvent('trbl-disableInvincible', function()
-    --if invincible == true then
-        SetEntityInvincible(entity, false)
+    
+    local player = PlayerPedId()
+    local veh = GetVehiclePedIsIn(player, false)    
+    if IsPedSittingInVehicle(player, veh) then 
+        SetEntityInvincible(veh, false)
         SetPlayerInvincible(player, false)
-        --invincible = false
+        
+    end
         print('Safety off')
-    --end
 end)
 
 
