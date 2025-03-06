@@ -6,7 +6,7 @@
 ![Languages](https://img.shields.io/github/languages/top/troublenz/trbl-elevators?color=aqua&style=plastic)
 
 # trbl-elevators
- Elevator style teleport script
+ Elevator style teleport script for FiveM
 
 ## An Over-Engineered teleport script, featuring:
 
